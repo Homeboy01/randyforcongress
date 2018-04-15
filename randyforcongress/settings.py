@@ -323,14 +323,18 @@ if os.path.exists(f):
 ###################
 
 f = os.path.join(PROJECT_APP_PATH, "heroku_settings.py")
-if os.environ['HEROKU']:
-    import sys
-    import imp
-    module_name = "%s.heroku_settings" % PROJECT_APP
-    module = imp.new_module(module_name)
-    module.__file__ = f
-    sys.modules[module_name] = module
-    exec(open(f, "rb").read())
+try:
+    if os.environ['HEROKU']:
+        import sys
+        import imp
+        module_name = "%s.heroku_settings" % PROJECT_APP
+        module = imp.new_module(module_name)
+        module.__file__ = f
+        sys.modules[module_name] = module
+        exec(open(f, "rb").read())
+except KeyError:
+    # No Heroku.
+    pass
 
 ####################
 # DYNAMIC SETTINGS #
