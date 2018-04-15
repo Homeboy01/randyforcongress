@@ -1,2 +1,3 @@
+gunicorn==19.7.1
 Mezzanine==4.2.3
 psycopg2==2.7.4
