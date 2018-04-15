@@ -20,7 +20,7 @@ DATABASES = {
         # Not used with sqlite3.
         "PASSWORD": os.environ['DATABASE_PASSWORD'],
         # Set to empty string for localhost. Not used with sqlite3.
-        "HOST": os.environ['DATABASE_URL'],
+        "HOST": os.environ['DATABASE_HOST'],
         # Set to empty string for default. Not used with sqlite3.
         "PORT": "5432",
     }
@@ -31,7 +31,7 @@ DATABASES = {
 ###################
 
 # Domains for public site
-ALLOWED_HOSTS = ["randyforcongress.herokuapp.com/"]
+ALLOWED_HOSTS = ["randyforcongress.herokuapp.com"]
 
 # These settings are used by the default fabfile.py provided.
 # Check fabfile.py for defaults.
