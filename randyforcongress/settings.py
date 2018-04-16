@@ -327,9 +327,11 @@ else:
 # HEROKU SETTINGS #
 ###################
 
+logging.debug("HEROKU: {}".format(os.environ['HEROKU']))
 f = os.path.join(PROJECT_APP_PATH, "heroku_settings.py")
 try:
     if os.environ['HEROKU'] and os.path.exists(f):
+        logging.debug("Attempting to load Heroku settings ...")
         import sys
         import imp
         module_name = "%s.heroku_settings" % PROJECT_APP
