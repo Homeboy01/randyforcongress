@@ -1,11 +1,14 @@
 from __future__ import absolute_import, unicode_literals
 import logging
 import os
+import pprint
 
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
 
-logging.debug("Environment: " + os.environ)
+logging.basicConfig(level=logging.DEBUG)
+logging.debug("Environment:")
+logging.debug(pprint.pformat(dict(os.environ)))
 
 ######################
 # MEZZANINE SETTINGS #
