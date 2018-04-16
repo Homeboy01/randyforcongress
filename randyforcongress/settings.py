@@ -327,20 +327,16 @@ else:
 # HEROKU SETTINGS #
 ###################
 
-logging.debug("HEROKU: {}".format(os.environ['HEROKU']))
 f = os.path.join(PROJECT_APP_PATH, "heroku_settings.py")
-try:
-    if os.environ['HEROKU'] and os.path.exists(f):
-        logging.debug("Attempting to load Heroku settings ...")
-        import sys
-        import imp
-        module_name = "%s.heroku_settings" % PROJECT_APP
-        module = imp.new_module(module_name)
-        module.__file__ = f
-        sys.modules[module_name] = module
-        exec(open(f, "rb").read())
-except KeyError:
-    logging.warning('Heroku settings not loaded.')
+if os.getenv('HEROKU') and os.path.exists(f):
+    logging.debug("Attempting to load Heroku settings ...")
+    import sys
+    import imp
+    module_name = "%s.heroku_settings" % PROJECT_APP
+    module = imp.new_module(module_name)
+    module.__file__ = f
+    sys.modules[module_name] = module
+    exec(open(f, "rb").read())
 
 ####################
 # DYNAMIC SETTINGS #
