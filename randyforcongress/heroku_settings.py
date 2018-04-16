@@ -1,50 +1,39 @@
 import os
 
-# This file is exec'd from settings.py, so it has access to and can
-# modify all the variables in settings.py.
+################
+# AWS SETTINGS #
+################
 
-DEBUG = True
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_SECRET_KEY_ID']
+AWS_S3_REGION_NAME = 'us-east-1'
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = 'randyforcongress'
 
-# Make these unique, and don't share it with anybody.
-SECRET_KEY = "*m7k#bnu8##_n!h&=29eaqtmj3nf-9udj%53x(u@6bs6n8$p&9"
-NEVERCACHE_KEY = "a7u#b+mi3sej^pxl^*&k05w0e_=us4+so1s=pv^ayr%!7=)5+p"
+# Tell django-storages the domain to use to refer to static files.
+AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+
+###################
+# DJANGO SETTINGS #
+###################
+
+ALLOWED_HOSTS = ["randyforcongress.herokuapp.com"]
 
 DATABASES = {
     "default": {
-        # Ends with "postgresql_psycopg2", "mysql", "sqlite3" or "oracle".
         "ENGINE": "django.db.backends.postgresql",
-        # DB name or path to database file if using sqlite3.
         "NAME": os.environ['DATABASE_NAME'],
-        # Not used with sqlite3.
         "USER": os.environ['DATABASE_USER'],
-        # Not used with sqlite3.
         "PASSWORD": os.environ['DATABASE_PASSWORD'],
-        # Set to empty string for localhost. Not used with sqlite3.
         "HOST": os.environ['DATABASE_HOST'],
-        # Set to empty string for default. Not used with sqlite3.
         "PORT": "5432",
     }
 }
 
-###################
-# DEPLOY SETTINGS #
-###################
+DEBUG = True
 
-# Domains for public site
-ALLOWED_HOSTS = ["randyforcongress.herokuapp.com"]
+NEVERCACHE_KEY = os.environ['NEVERCACHE_KEY']
+SECRET_KEY = os.environ['SECRET_KEY']
 
-# These settings are used by the default fabfile.py provided.
-# Check fabfile.py for defaults.
-
-# FABRIC = {
-#     "DEPLOY_TOOL": "rsync",  # Deploy with "git", "hg", or "rsync"
-#     "SSH_USER": "",  # VPS SSH username
-#     "HOSTS": [""],  # The IP address of your VPS
-#     "DOMAINS": ALLOWED_HOSTS,  # Edit domains in ALLOWED_HOSTS
-#     "REQUIREMENTS_PATH": "requirements.txt",  # Project's pip requirements
-#     "LOCALE": "en_US.UTF-8",  # Should end with ".UTF-8"
-#     "DB_PASS": "",  # Live database password
-#     "ADMIN_PASS": "",  # Live admin user password
-#     "SECRET_KEY": SECRET_KEY,
-#     "NEVERCACHE_KEY": NEVERCACHE_KEY,
-# }
+# Tell the staticfiles app to use S3Boto3 storage when writing the collected
+# static files (when you run `collectstatic`).
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
