@@ -35,8 +35,8 @@ DEBUG = True
 NEVERCACHE_KEY = os.environ['NEVERCACHE_KEY']
 SECRET_KEY = os.environ['SECRET_KEY']
 
-logging.error(os.environ['SECRET_KEY'])
-logging.error(SECRET_KEY)
+logging.debug("SECRET_KEY environment variable: " + os.environ['SECRET_KEY'])
+logging.debug("SECRET_KEY configuration varuable: " + SECRET_KEY)
 
 # Tell the staticfiles app to use S3Boto3 storage when writing the collected
 # static files (when you run `collectstatic`).

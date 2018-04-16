@@ -1,5 +1,5 @@
-
 from __future__ import absolute_import, unicode_literals
+import logging
 import os
 
 from django import VERSION as DJANGO_VERSION
@@ -90,9 +90,7 @@ USE_MODELTRANSLATION = False
 # MAIN DJANGO SETTINGS #
 ########################
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+# Hosts/domain names that are valid for this site; required if DEBUG is False # See https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts ALLOWED_HOSTS = []
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -318,6 +316,8 @@ if os.path.exists(f):
     module.__file__ = f
     sys.modules[module_name] = module
     exec(open(f, "rb").read())
+else:
+    logging.warning('No local settings found.')
 
 ###################
 # HEROKU SETTINGS #
@@ -325,7 +325,7 @@ if os.path.exists(f):
 
 f = os.path.join(PROJECT_APP_PATH, "heroku_settings.py")
 try:
-    if os.environ['HEROKU']:
+    if os.environ['HEROKU'] and os.path.exists(f):
         import sys
         import imp
         module_name = "%s.heroku_settings" % PROJECT_APP
@@ -334,8 +334,7 @@ try:
         sys.modules[module_name] = module
         exec(open(f, "rb").read())
 except KeyError:
-    # No Heroku.
-    pass
+    logging.warning('Heroku settings not loaded.')
 
 ####################
 # DYNAMIC SETTINGS #
@@ -350,6 +349,6 @@ except KeyError:
 try:
     from mezzanine.utils.conf import set_dynamic_settings
 except ImportError:
-    pass
+    logging.warning('Dynamic settings not loaded.')
 else:
     set_dynamic_settings(globals())
