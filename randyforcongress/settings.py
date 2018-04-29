@@ -1,14 +1,9 @@
 from __future__ import absolute_import, unicode_literals
 import logging
 import os
-import pprint
 
 from django import VERSION as DJANGO_VERSION
 from django.utils.translation import ugettext_lazy as _
-
-logging.basicConfig(level=logging.DEBUG)
-logging.debug("Environment:")
-logging.debug(pprint.pformat(dict(os.environ)))
 
 ######################
 # MEZZANINE SETTINGS #
@@ -81,9 +76,23 @@ logging.debug(pprint.pformat(dict(os.environ)))
 #     ),
 # )
 
+EXTRA_MODEL_FIELDS = (
+    # BlogPost featured video:
+    (
+        "mezzanine.blog.models.BlogPost.featured_video",
+        "TextField",  # 'django.db.models.' is implied if path is omitted.
+        ("Featured video",),
+        {"blank": True,
+         "help_text": "Optional, putting video embed code (iframe) here, will "
+                      "override a Featured image specified above.  This has "
+                      "been tested to work with Youtube and Vimeo, but may "
+                      "work with other iframes as well."},
+    ),
+)
+
 # Setting to turn on featured images for blog posts. Defaults to False.
-#
-# BLOG_USE_FEATURED_IMAGE = True
+
+BLOG_USE_FEATURED_IMAGE = True
 
 # If True, the django-modeltranslation will be added to the
 # INSTALLED_APPS setting.
@@ -233,7 +242,6 @@ if DJANGO_VERSION < (1, 9):
 
 INSTALLED_APPS = (
     # "moderna",
-    "tableau",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -242,6 +250,7 @@ INSTALLED_APPS = (
     "django.contrib.sites",
     "django.contrib.sitemaps",
     "django.contrib.staticfiles",
+    "theme",
     "mezzanine.boot",
     "mezzanine.conf",
     "mezzanine.core",
@@ -253,7 +262,8 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
-    'storages',
+    "theme.blog_mods",
+    "storages",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
