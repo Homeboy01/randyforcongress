@@ -1,7 +1,8 @@
 
 from django.contrib import admin
 
-from mezzanine.core.admin import TabularDynamicInlineAdmin, SingletonAdmin
+from mezzanine.core.admin import TabularDynamicInlineAdmin
+from mezzanine.utils.admin import SingletonAdmin
 from mezzanine.pages.admin import PageAdmin
 
 from models import SiteConfiguration, HomePage, IconBox
