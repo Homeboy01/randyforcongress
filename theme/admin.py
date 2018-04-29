@@ -5,7 +5,7 @@ from mezzanine.core.admin import TabularDynamicInlineAdmin
 from mezzanine.utils.admin import SingletonAdmin
 from mezzanine.pages.admin import PageAdmin
 
-from tableau.models import SiteConfiguration, HomePage, IconBox
+from theme.models import SiteConfiguration, HomePage, IconBox
 
 admin.site.register(SiteConfiguration, SingletonAdmin)
 
