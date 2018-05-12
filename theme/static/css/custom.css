@@ -931,8 +931,11 @@ li.account p{
 	min-width: 200px;
 }
 
-/* ===== Site search ===== */
+/* ===== Main Menu ===== */
 
+.navbar-nav {
+  float: right;
+}
 .navbar-nav li#search {
 	background: #00B4FF;
 	background: linear-gradient(top, #00B4FF, #009DE0);
