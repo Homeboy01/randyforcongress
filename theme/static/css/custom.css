@@ -111,7 +111,7 @@ h1.hl small, h2.hl small, h3.hl small, h4.hl small, h5.hl small, h6.hl small {
 	margin: 0 auto;
 }
 .showcase img {
-  height: 100%;
+  box-shadow: 3px 3px 3px black;
 }
 .iMac {
 	background: url(../img/iMac.png);
@@ -120,7 +120,7 @@ h1.hl small, h2.hl small, h3.hl small, h4.hl small, h5.hl small, h6.hl small {
 	background-size: cover;
 	background-position: center;
 	position: absolute;
-	top: 70px;
+	top: 100px;
 	-webkit-animation-duration: 1s;
 	-moz-animation-delay: 1s;
 }
