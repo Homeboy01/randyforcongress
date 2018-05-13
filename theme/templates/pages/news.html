@@ -1,0 +1,35 @@
+{% extends "pages/page.html" %}
+
+{% load mezzanine_tags blog_tags %}
+
+{% block extra_js %}
+{{ block.super }}
+{% endblock %}
+
+{% block main_cols %}col-md-12{% endblock %}
+
+{% block main %}
+{{ block.super }}
+{% blog_recent_posts 8 as recent_posts %}
+{% if recent_posts %}
+{% for post in recent_posts %}
+<div class="media">
+    {% if settings.BLOG_USE_FEATURED_IMAGE and post.featured_image %}
+    <a class="pull-left" href="{{ post.get_absolute_url }}">
+        <img class="media-object" src="{{ MEDIA_URL }}{% thumbnail post.featured_image 64 64 %}" alt="post featured image">
+    </a>
+    {% endif %}
+    <div class="media-body">
+        <h4 class="media-heading"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h4>
+        {{ post.description_from_content|truncatewords_html:15|safe }}
+    </div>
+</div>
+{% endfor %}
+<a href="{% url 'blog_post_list' %}" class="read-more">Read more stories...</a>
+{% else %}
+<p>We haven't posted anything yet, check back soon!</p>
+{% endif %}
+{% endblock %}
+
+{% block after_main %}
+{% endblock %}
